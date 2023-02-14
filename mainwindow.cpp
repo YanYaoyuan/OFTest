@@ -1180,14 +1180,25 @@ void MainWindow::on_saveAction_triggered()
     std::cout << "Save single point cloud !" << std::endl;
     //保存到PCD文件
 
-    pcl::io::savePCDFileASCII("test111.pcd", *mycloud_vec[0].cloud); //将点云保存到PCD文件中
-
-//    保存当前帧坐标
-
-//    for(int i = 0; i < mycloud_vec[0].cloud->points.size(); i++)
-//    {
-//        std::cout << mycloud_vec[0].cloud->points[i].x << std::endl;
-//    }
+    \
+    //待完成，弹窗选择保存文件类型
+    QString fileName;
+    fileName = QFileDialog::getSaveFileName(this,
+            tr("Save PointCloud File As"), "",
+            tr("PCD Files (*.pcd);; PLY File(*.ply);;OBJ File(*obj);; VTK File(*.vtk);; Text File(*.txt)"));
+    std::cout << fileName.toStdString() << std::endl;
+    if(fileName.contains(".pcd")){
+        FileIO::savePCD(*mycloud_vec[0].cloud, fileName.toStdString(), 0);
+    }else if(fileName.contains(".ply"))
+    {
+        pcl::io::savePLYFile(fileName.toStdString(), *mycloud_vec[0].cloud);
+    }else if(fileName.contains(".obj"))
+    {
+        pcl::io::saveOBJFile(fileName.toStdString(), *mycloud_vec[0].mesh);
+    }else if(fileName.contains(".ply"))
+    {
+        pcl::io::saveVTKFile(fileName.toStdString(), *mycloud_vec[0].mesh, 1);
+    }
 
 }
 
