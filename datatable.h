@@ -46,6 +46,8 @@ private slots:
 
     void on_next_Frame_clicked();
 
+    void on_skip_to_clicked();
+
 private:
     Ui::datatable *ui;
     datatable *table;

@@ -60,9 +60,6 @@ void datatable::on_freshData_clicked()
     getData(myWindow);
     showTable();
 
-    //显示当前帧点云数量
-    ui->label_single->setText(QString::number(col_table + 1));
-    ui->label_total->setText(QString::number(total_Frame));
 
 
 
@@ -81,10 +78,6 @@ void datatable::getData(MainWindow *myWindow)
         point_y.push_back(std::to_string(myWindow->mycloud_vec[current_Frame].cloud->points[i].y));
         point_z.push_back(std::to_string(myWindow->mycloud_vec[current_Frame].cloud->points[i].z));
     }
-
-
-
-
 }
 
 void datatable::showTable()
@@ -119,10 +112,10 @@ void datatable::showTable()
         m_model->setItem(i, 2, new QStandardItem(QString::fromStdString(point_y[i])));
         m_model->setItem(i, 3, new QStandardItem(QString::fromStdString(point_z[i])));
     }
-
-
-
-
+    //表格上方帧数信息显示
+    ui->label_current->setText(QString::number(current_Frame + 1));
+    ui->label_single->setText(QString::number(col_table));
+    ui->label_total->setText(QString::number(total_Frame));
 }
 
 
@@ -137,13 +130,10 @@ void datatable::on_saveCurrent_Frame_clicked()
             tr("PCD Files (*.pcd);; PLY File(*.ply);;OBJ File(*obj);; VTK File(*.vtk);; Text File(*.txt)"));
     std::cout << "Current frame is " << current_Frame + 1 << "'s" << std::endl;
 }
-
-
-
-
-
+//显示最开始的数据表
 void datatable::on_frist_Frame_clicked()
 {
+    //将当前帧数设为0，每一次重新显示时候将数据容器清空
     current_Frame = 0;
     point_x.clear();
     point_y.clear();
@@ -151,11 +141,8 @@ void datatable::on_frist_Frame_clicked()
 
     getData(myWindow);
     showTable();
-
-    //显示当前帧点云数量,以及总帧数
-    ui->label_single->setText(QString::number(col_table + 1));
 }
-
+//显示上一帧数据表
 void datatable::on_last_Frame_clicked()
 {
     if(current_Frame > 0)
@@ -166,14 +153,13 @@ void datatable::on_last_Frame_clicked()
         point_z.clear();
         getData(myWindow);
         showTable();
-        ui->label_single->setText(QString::number(col_table + 1));
 
     }else
     {
         std::cout << "Already First Frame!!!" << std::endl;
     }
 }
-
+//显示下一帧数据表
 void datatable::on_next_Frame_clicked()
 {
 
@@ -181,12 +167,29 @@ void datatable::on_next_Frame_clicked()
     point_x.clear();
     point_y.clear();
     point_z.clear();
-    getData(myWindow);
-    if(current_Frame < col_table)
+    if(current_Frame < total_Frame)
     {
+        getData(myWindow);
         showTable();
     }else{
         std::cout << "End of Frame!!!" << std::endl;
     }
 
+}
+//跳转到指定帧数页面
+void datatable::on_skip_to_clicked()
+{
+    point_x.clear();
+    point_y.clear();
+    point_z.clear();
+    QString s = ui->num_Frame->text();
+    current_Frame = s.toInt();
+    if(current_Frame < (total_Frame-1) && current_Frame >=0)
+    {
+        getData(myWindow);
+        showTable();
+    }else
+    {
+        std::cout << "Invaild number!!!" << std::endl;
+    }
 }

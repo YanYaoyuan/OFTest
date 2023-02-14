@@ -31,14 +31,16 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QPushButton *freshData;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_5;
-    QLineEdit *lineEdit;
+    QPushButton *frist_Frame;
+    QPushButton *last_Frame;
+    QPushButton *next_Frame;
+    QPushButton *skip_to;
+    QLineEdit *num_Frame;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *pushButton_6;
     QLabel *label_total;
+    QPushButton *current_Frame;
+    QLabel *label_current;
     QPushButton *pushButton_7;
     QLabel *label_single;
     QPushButton *saveCurrent_Frame;
@@ -54,7 +56,7 @@ public:
         tableView->setGeometry(QRect(50, 100, 611, 571));
         layoutWidget = new QWidget(datatable);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(51, 21, 542, 60));
+        layoutWidget->setGeometry(QRect(51, 21, 547, 60));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -65,30 +67,30 @@ public:
 
         horizontalLayout->addWidget(freshData);
 
-        pushButton_3 = new QPushButton(layoutWidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        frist_Frame = new QPushButton(layoutWidget);
+        frist_Frame->setObjectName(QString::fromUtf8("frist_Frame"));
 
-        horizontalLayout->addWidget(pushButton_3);
+        horizontalLayout->addWidget(frist_Frame);
 
-        pushButton_4 = new QPushButton(layoutWidget);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        last_Frame = new QPushButton(layoutWidget);
+        last_Frame->setObjectName(QString::fromUtf8("last_Frame"));
 
-        horizontalLayout->addWidget(pushButton_4);
+        horizontalLayout->addWidget(last_Frame);
 
-        pushButton_2 = new QPushButton(layoutWidget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        next_Frame = new QPushButton(layoutWidget);
+        next_Frame->setObjectName(QString::fromUtf8("next_Frame"));
 
-        horizontalLayout->addWidget(pushButton_2);
+        horizontalLayout->addWidget(next_Frame);
 
-        pushButton_5 = new QPushButton(layoutWidget);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
+        skip_to = new QPushButton(layoutWidget);
+        skip_to->setObjectName(QString::fromUtf8("skip_to"));
 
-        horizontalLayout->addWidget(pushButton_5);
+        horizontalLayout->addWidget(skip_to);
 
-        lineEdit = new QLineEdit(layoutWidget);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        num_Frame = new QLineEdit(layoutWidget);
+        num_Frame->setObjectName(QString::fromUtf8("num_Frame"));
 
-        horizontalLayout->addWidget(lineEdit);
+        horizontalLayout->addWidget(num_Frame);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -104,6 +106,16 @@ public:
         label_total->setObjectName(QString::fromUtf8("label_total"));
 
         horizontalLayout_2->addWidget(label_total);
+
+        current_Frame = new QPushButton(layoutWidget);
+        current_Frame->setObjectName(QString::fromUtf8("current_Frame"));
+
+        horizontalLayout_2->addWidget(current_Frame);
+
+        label_current = new QLabel(layoutWidget);
+        label_current->setObjectName(QString::fromUtf8("label_current"));
+
+        horizontalLayout_2->addWidget(label_current);
 
         pushButton_7 = new QPushButton(layoutWidget);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
@@ -138,12 +150,14 @@ public:
     {
         datatable->setWindowTitle(QCoreApplication::translate("datatable", "\347\202\271\344\272\221\346\225\260\346\215\256\350\241\250", nullptr));
         freshData->setText(QCoreApplication::translate("datatable", "\345\210\267\346\226\260\346\225\260\346\215\256", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("datatable", "\350\265\267\345\247\213\345\270\247", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("datatable", "\344\270\212\344\270\200\345\270\247", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("datatable", "\344\270\213\344\270\200\345\270\247", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("datatable", "\350\267\263\350\275\254", nullptr));
+        frist_Frame->setText(QCoreApplication::translate("datatable", "\350\265\267\345\247\213\345\270\247", nullptr));
+        last_Frame->setText(QCoreApplication::translate("datatable", "\344\270\212\344\270\200\345\270\247", nullptr));
+        next_Frame->setText(QCoreApplication::translate("datatable", "\344\270\213\344\270\200\345\270\247", nullptr));
+        skip_to->setText(QCoreApplication::translate("datatable", "\350\267\263\350\275\254", nullptr));
         pushButton_6->setText(QCoreApplication::translate("datatable", "\346\200\273\345\270\247\346\225\260\357\274\232", nullptr));
         label_total->setText(QCoreApplication::translate("datatable", "TextLabel", nullptr));
+        current_Frame->setText(QCoreApplication::translate("datatable", "\345\275\223\345\211\215\345\270\247\357\274\232", nullptr));
+        label_current->setText(QCoreApplication::translate("datatable", "TextLabel", nullptr));
         pushButton_7->setText(QCoreApplication::translate("datatable", "\345\215\225\345\270\247\347\202\271\346\225\260\357\274\232", nullptr));
         label_single->setText(QCoreApplication::translate("datatable", "TextLabel", nullptr));
         saveCurrent_Frame->setText(QCoreApplication::translate("datatable", "\345\255\230\345\202\250\345\275\223\345\211\215\345\270\247", nullptr));
