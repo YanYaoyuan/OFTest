@@ -28,7 +28,7 @@
     <rect>
      <x>51</x>
      <y>21</y>
-     <width>542</width>
+     <width>547</width>
      <height>60</height>
     </rect>
    </property>
@@ -43,35 +43,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="frist_Frame">
         <property name="text">
          <string>起始帧</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="last_Frame">
         <property name="text">
          <string>上一帧</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="next_Frame">
         <property name="text">
          <string>下一帧</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="skip_to">
         <property name="text">
          <string>跳转</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="num_Frame"/>
       </item>
      </layout>
     </item>
@@ -92,6 +92,20 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="current_Frame">
+        <property name="text">
+         <string>当前帧：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_current">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_7">
         <property name="text">
          <string>单帧点数：</string>
@@ -106,7 +120,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_savecur">
+       <widget class="QPushButton" name="saveCurrent_Frame">
         <property name="text">
          <string>存储当前帧</string>
         </property>

@@ -36,6 +36,16 @@ private slots:
 
     void getData(MainWindow *myWindow);
 
+
+
+    void on_saveCurrent_Frame_clicked();
+
+    void on_frist_Frame_clicked();
+
+    void on_last_Frame_clicked();
+
+    void on_next_Frame_clicked();
+
 private:
     Ui::datatable *ui;
     datatable *table;
@@ -47,6 +57,10 @@ private:
     std::vector<std::string> point_x;
     std::vector<std::string> point_y;
     std::vector<std::string> point_z;
+
+    //默认当前为第一帧
+    int current_Frame = 0;
+    int total_Frame   = 0;
 
     void showTable();
 

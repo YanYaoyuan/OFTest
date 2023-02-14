@@ -41,7 +41,7 @@ public:
     QLabel *label_total;
     QPushButton *pushButton_7;
     QLabel *label_single;
-    QPushButton *pushButton_savecur;
+    QPushButton *saveCurrent_Frame;
     QLineEdit *savecurptahEdit;
 
     void setupUi(QDialog *datatable)
@@ -115,10 +115,10 @@ public:
 
         horizontalLayout_2->addWidget(label_single);
 
-        pushButton_savecur = new QPushButton(layoutWidget);
-        pushButton_savecur->setObjectName(QString::fromUtf8("pushButton_savecur"));
+        saveCurrent_Frame = new QPushButton(layoutWidget);
+        saveCurrent_Frame->setObjectName(QString::fromUtf8("saveCurrent_Frame"));
 
-        horizontalLayout_2->addWidget(pushButton_savecur);
+        horizontalLayout_2->addWidget(saveCurrent_Frame);
 
         savecurptahEdit = new QLineEdit(layoutWidget);
         savecurptahEdit->setObjectName(QString::fromUtf8("savecurptahEdit"));
@@ -146,7 +146,7 @@ public:
         label_total->setText(QCoreApplication::translate("datatable", "TextLabel", nullptr));
         pushButton_7->setText(QCoreApplication::translate("datatable", "\345\215\225\345\270\247\347\202\271\346\225\260\357\274\232", nullptr));
         label_single->setText(QCoreApplication::translate("datatable", "TextLabel", nullptr));
-        pushButton_savecur->setText(QCoreApplication::translate("datatable", "\345\255\230\345\202\250\345\275\223\345\211\215\345\270\247", nullptr));
+        saveCurrent_Frame->setText(QCoreApplication::translate("datatable", "\345\255\230\345\202\250\345\275\223\345\211\215\345\270\247", nullptr));
     } // retranslateUi
 
 };

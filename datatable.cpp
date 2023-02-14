@@ -52,27 +52,34 @@ void datatable::createtable()
 
 void datatable::on_freshData_clicked()
 {
+    //先清空字符串容器
+    point_x.clear();
+    point_y.clear();
+    point_z.clear();
 
-
-    //ui->tableView->update();
-   // std::cout << MainWindow::mycloud_vec[0].cloud->points.size() << std::endl;
     getData(myWindow);
     showTable();
+
+    //显示当前帧点云数量
+    ui->label_single->setText(QString::number(col_table + 1));
+    ui->label_total->setText(QString::number(total_Frame));
+
 
 
 }
 
 void datatable::getData(MainWindow *myWindow)
 {
-    std::cout <<"111" << std::endl;
     myWindow->consoleLog("get point data", "dataTable", "show", "");
-    std::cout <<myWindow->mycloud_vec.size() << std::endl;
-    col_table = myWindow->mycloud_vec[0].cloud->points.size() - 1;
-    for(int i = 0; i < myWindow->mycloud_vec[0].cloud->points.size(); i++)
+
+    //获取当前点云集总帧数
+    total_Frame = myWindow->mycloud_vec.size();
+    col_table = myWindow->mycloud_vec[current_Frame].cloud->points.size() - 1;
+    for(int i = 0; i < myWindow->mycloud_vec[current_Frame].cloud->points.size(); i++)
     {
-        point_x.push_back(std::to_string(myWindow->mycloud_vec[0].cloud->points[i].x));
-        point_y.push_back(std::to_string(myWindow->mycloud_vec[0].cloud->points[i].y));
-        point_z.push_back(std::to_string(myWindow->mycloud_vec[0].cloud->points[i].z));
+        point_x.push_back(std::to_string(myWindow->mycloud_vec[current_Frame].cloud->points[i].x));
+        point_y.push_back(std::to_string(myWindow->mycloud_vec[current_Frame].cloud->points[i].y));
+        point_z.push_back(std::to_string(myWindow->mycloud_vec[current_Frame].cloud->points[i].z));
     }
 
 
@@ -118,3 +125,68 @@ void datatable::showTable()
 
 }
 
+
+
+
+void datatable::on_saveCurrent_Frame_clicked()
+{
+    //保存当前帧
+    QString fileName;
+    fileName = QFileDialog::getSaveFileName(this,
+            tr("Save Current Frame Data"), "",
+            tr("PCD Files (*.pcd);; PLY File(*.ply);;OBJ File(*obj);; VTK File(*.vtk);; Text File(*.txt)"));
+    std::cout << "Current frame is " << current_Frame + 1 << "'s" << std::endl;
+}
+
+
+
+
+
+void datatable::on_frist_Frame_clicked()
+{
+    current_Frame = 0;
+    point_x.clear();
+    point_y.clear();
+    point_z.clear();
+
+    getData(myWindow);
+    showTable();
+
+    //显示当前帧点云数量,以及总帧数
+    ui->label_single->setText(QString::number(col_table + 1));
+}
+
+void datatable::on_last_Frame_clicked()
+{
+    if(current_Frame > 0)
+    {
+        current_Frame -= 1;
+        point_x.clear();
+        point_y.clear();
+        point_z.clear();
+        getData(myWindow);
+        showTable();
+        ui->label_single->setText(QString::number(col_table + 1));
+
+    }else
+    {
+        std::cout << "Already First Frame!!!" << std::endl;
+    }
+}
+
+void datatable::on_next_Frame_clicked()
+{
+
+    current_Frame += 1;
+    point_x.clear();
+    point_y.clear();
+    point_z.clear();
+    getData(myWindow);
+    if(current_Frame < col_table)
+    {
+        showTable();
+    }else{
+        std::cout << "End of Frame!!!" << std::endl;
+    }
+
+}

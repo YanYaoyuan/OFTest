@@ -1188,7 +1188,7 @@ void MainWindow::on_saveAction_triggered()
             tr("PCD Files (*.pcd);; PLY File(*.ply);;OBJ File(*obj);; VTK File(*.vtk);; Text File(*.txt)"));
     std::cout << fileName.toStdString() << std::endl;
     if(fileName.contains(".pcd")){
-        FileIO::savePCD(*mycloud_vec[0].cloud, fileName.toStdString(), 0);
+        pcl::io::savePCDFile(fileName.toStdString(), *mycloud_vec[0].cloud);
     }else if(fileName.contains(".ply"))
     {
         pcl::io::savePLYFile(fileName.toStdString(), *mycloud_vec[0].cloud);
