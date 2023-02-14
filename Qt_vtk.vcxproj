@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3B6E2236-2A1E-4500-B171-5283945C4165}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>5.14</QtInstall>
+    <QtModules>core;network;gui;widgets;serialport;charts;networkauth;texttospeech</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="adc.cpp" />
+    <ClCompile Include="receiver.cpp" />
+    <ClCompile Include="registe_configure.cpp" />
+    <ClCompile Include="serial_port.cpp" />
+    <ClCompile Include="Tools.cpp" />
+    <QtRcc Include="Qt_vtk.qrc" />
+    <QtUic Include="adc.ui" />
+    <QtUic Include="datatable.ui" />
+    <QtUic Include="document.ui" />
+    <QtUic Include="fpga.ui" />
+    <QtUic Include="ip_config.ui" />
+    <QtUic Include="laser.ui" />
+    <QtUic Include="mainwindow.ui" />
+    <QtUic Include="mems.ui" />
+    <ClCompile Include="datatable.cpp" />
+    <ClCompile Include="document.cpp" />
+    <ClCompile Include="FileIO.cpp" />
+    <ClCompile Include="fpga.cpp" />
+    <ClCompile Include="ip_config.cpp" />
+    <ClCompile Include="laser.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="mems.cpp" />
+    <ClCompile Include="MyCloud.cpp" />
+    <ClCompile Include="pointcloud.cpp" />
+    <ClCompile Include="printview.cpp" />
+    <ClCompile Include="main.cpp" />
+    <QtUic Include="receiver.ui" />
+    <QtUic Include="registe_configure.ui" />
+    <QtUic Include="serial_port.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="datatable.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="document.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="adc.h" />
+    <ClInclude Include="FileIO.h" />
+    <ClInclude Include="MyCloud.h" />
+    <ClInclude Include="pointcloud.h" />
+    <ClInclude Include="Tools.h" />
+    <ClInclude Include="ui_datatable.h" />
+    <ClInclude Include="ui_document.h" />
+    <ClInclude Include="ui_fpga.h" />
+    <ClInclude Include="ui_ip_config.h" />
+    <ClInclude Include="ui_laser.h" />
+    <ClInclude Include="ui_mainwindow.h" />
+    <ClInclude Include="ui_mems.h" />
+    <ClInclude Include="ui_receiver.h" />
+    <ClInclude Include="ui_registe_configure.h" />
+    <ClInclude Include="ui_serial_port.h" />
+    <QtMoc Include="vtk_show.h" />
+    <QtMoc Include="serial_port.h" />
+    <QtMoc Include="registe_configure.h" />
+    <QtMoc Include="receiver.h" />
+    <QtMoc Include="printview.h" />
+    <QtMoc Include="mems.h" />
+    <QtMoc Include="mainwindow.h" />
+    <QtMoc Include="laser.h" />
+    <QtMoc Include="ip_config.h" />
+    <QtMoc Include="fpga.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

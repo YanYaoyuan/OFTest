@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/about.png</file>
+        <file>images/add.png</file>
+        <file>images/angle view.png</file>
+        <file>images/bgcolor.png</file>
+        <file>images/change.png</file>
+        <file>images/clear.png</file>
+        <file>images/cube.png</file>
+        <file>images/cylinder.png</file>
+        <file>images/exit.png</file>
+        <file>images/frame.png</file>
+        <file>images/fushi.png</file>
+        <file>images/help.png</file>
+        <file>images/icon.ico</file>
+        <file>images/icon.png</file>
+        <file>images/interview.png</file>
+        <file>images/language.png</file>
+        <file>images/mesh.png</file>
+        <file>images/open.png</file>
+        <file>images/pointcolor.png</file>
+        <file>images/save.png</file>
+        <file>images/saveBinary.png</file>
+        <file>images/shape.png</file>
+        <file>images/sphere.png</file>
+        <file>images/theme.png</file>
+        <file>images/zhengshi.png</file>
+        <file>images/zuoshi.png</file>
+        <file>images/circle1.png</file>
+        <file>images/AXES.png</file>
+    </qresource>
+</RCC>
