@@ -97,9 +97,9 @@ void MyCloud::setPointColor(int r, int g, int b) {
     //viewer改变颜色
     for (int i = 0; i != cloud->points.size(); ++i) {
         std::cout <<"single pointcloud color change" << std::endl;
-        cloud->points[i].r = r;
-        cloud->points[i].g = g;
-        cloud->points[i].b = b;
+        (*cloud).points[i].r = r;
+        (*cloud).points[i].g = g;
+        (*cloud).points[i].b = b;
     }
 
 

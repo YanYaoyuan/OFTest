@@ -288,20 +288,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 
-//void MainWindow::on_systemtime_clicked()
-//{
-//    QDateTime current_date_time =QDateTime::currentDateTime();
-//    QString current_date =current_date_time.toString("yyyy.MM.dd hh:mm:ss.zzz ddd");
-
-//    //printf("%s\n",current_date.toStdString().data());
-
-//    //std::cout<<current_date.toStdString()<<std::endl;
-
-//    ui->label->setText(current_date);
-
-//}
-
-
 
 
 void MainWindow::slot_uploadBtnClicked()
@@ -445,7 +431,8 @@ void MainWindow::pointcolorChanged() {
                 mycloud_vec[i].setPointColor(color.red(), color.green(), color.blue());
             }
             // 输出窗口
-            consoleLog("Change cloud color", "All point clouds", QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()), "");
+            consoleLog("Change cloud color", "All point clouds",
+                       QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()), "");
         }
         else {
             for (int i = 0; i != selected_item_count; i++) {
@@ -453,14 +440,12 @@ void MainWindow::pointcolorChanged() {
                 mycloud_vec[cloud_id].setPointColor(color.red(), color.green(), color.blue());
             }
             // 输出窗口
-            consoleLog("Change cloud color", "Point clouds selected", QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()), "");
+            consoleLog("Change cloud color", "Point clouds selected",
+                       QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()), "");
         }
-        // 颜色的改变同步至RGB停靠窗口
-        //ui.rSlider->setValue(color.red());
-        // ui.gSlider->setValue(color.green());
-        //ui.bSlider->setValue(color.blue());
 
-        //showPointcloud();
+
+        showPointcloud();
     }
 }
 
@@ -486,7 +471,6 @@ void MainWindow::showPointcloudAdd() {
         mycloud_vec[i].elevationRendering();
         viewer->addPointCloud(mycloud_vec[i].cloud, mycloud_vec[i].cloudId);
     }
-    viewer->setBackgroundColor(0, 0, 0);
 
     showPointcloud();
 
@@ -809,19 +793,19 @@ void MainWindow::popMenu(const QPoint&) {
 }
 
 void MainWindow::hideItem() {
-  QList<QTreeWidgetItem*> itemList = ui->dataTree_2->selectedItems();
-  for (int i = 0; i != ui->dataTree_2->selectedItems().size(); i++){
-    // TODO hide之后，item变成灰色，再次右击item时，“hideItem” 选项变成 “showItem”
-    // QTreeWidgetItem* curItem = ui.dataTree->currentItem();
-    QTreeWidgetItem* curItem = itemList[i];
-    QString name = curItem->text(0);
-    int id = ui->dataTree_2->indexOfTopLevelItem(curItem);
-    mycloud_vec[id].hide();
-    // QMessageBox::information(this, "cloud_id", QString::fromLocal8Bit(cloud_id.c_str()));
+    QList<QTreeWidgetItem*> itemList = ui->dataTree_2->selectedItems();
+    for (int i = 0; i != ui->dataTree_2->selectedItems().size(); i++){
+        // TODO hide之后，item变成灰色，再次右击item时，“hideItem” 选项变成 “showItem”
+        // QTreeWidgetItem* curItem = ui.dataTree->currentItem();
+        QTreeWidgetItem* curItem = itemList[i];
+        QString name = curItem->text(0);
+        int id = ui->dataTree_2->indexOfTopLevelItem(curItem);
+        mycloud_vec[id].hide();
+        // QMessageBox::information(this, "cloud_id", QString::fromLocal8Bit(cloud_id.c_str()));
 
-    QColor item_color = QColor(112, 122, 132, 255);
-    //curItem->setTextColor(0, item_color);
-    mycloud_vec[id].visible = false;
+        QColor item_color = QColor(112, 122, 132, 255);
+        //curItem->setTextColor(0, item_color);
+        mycloud_vec[id].visible = false;
     }
 
     // 输出窗口
@@ -863,7 +847,7 @@ void MainWindow::showItem() {
 // 三视图
 void MainWindow::mainview_action() {
     std::cout<<"show by main view"<<std::endl;
-    viewer->setCameraPosition(0, -1, 0, 0.5, 0.5, 0.5, 0, 0, 1);
+    viewer->setCameraPosition(100, -100, 100, 0, 0, 0, 0, 0, 1);
     ui->openGLWidget->update();
 
     ui->fpsNumber->display("12345");
@@ -872,13 +856,13 @@ void MainWindow::mainview_action() {
 
 void MainWindow::leftview_action() {
     std::cout<<"show by left view"<<std::endl;
-    viewer->setCameraPosition(-1, 0, 0, 0, 0, 0, 0, 0, 1);
+    viewer->setCameraPosition(-200, 0, 0, 0, 0, 0, 0, 0, 1);
     ui->openGLWidget->update();
 }
 
 void MainWindow::topview_action() {
     std::cout<<"show by top view"<<std::endl;
-    viewer->setCameraPosition(0, 0, 1, 0, 0, 0, 0, 1, 0);
+    viewer->setCameraPosition(0, 0, 200, 0, 0, 0, 0, 1, 0);
     ui->openGLWidget->update();
 }
 
@@ -1144,14 +1128,10 @@ void MainWindow::on_pointcolorAction_triggered()
 
     if (color.isValid()) {
         for(int i = 0; i < mycloud_vec.size(); i++){
-
-        //改变所有容器中点云颜色
-        //mycloud_vec[i].pointActor->GetProperty()->SetColor(double(double(color.red()) / 255), double(double(color.green()) / 255), double(double(color.blue()) / 255));
         mycloud_vec[i].setPointColor(color.red(), color.green(), color.blue());
+        }
     }
-    }
-    viewer->spin();
-    ui->openGLWidget->update();
+    showPointcloud();
 
 }
 
@@ -1211,8 +1191,16 @@ void MainWindow::on_addCricleshow_triggered(bool checked)
 {
     if(checked)
     {
+        //画网格
+        for (int i = -100; i <= 100; i += 10) {
+            viewer->addLine(pcl::PointXYZ(i, -100, 0), pcl::PointXYZ(i, 100, 0), QString("GridlineY%1").arg(i).toStdString(), 0);
+            viewer->addLine(pcl::PointXYZ(-100, i, 0), pcl::PointXYZ(100, i, 0), QString("GridlineX%1").arg(i).toStdString(), 0);
+            if (i > 0)
+                viewer->addText3D(QString::number(i).append("m").toStdString(), pcl::PointXYZ(0, i, 0), 0.8, 0.5, 0.5, 0.5, QString("GridText%1").arg(i).toStdString(), 0);
+            viewer->setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, 0.1, QString("GridlineY%1").arg(i).toStdString(), 0);
+            viewer->setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, 0.1, QString("GridlineX%1").arg(i).toStdString(), 0);
+        }
         //画圆环
-        QVector<pcl::PointXYZ> points;
         for (int j = 1; j <= 10; j++) {
             int r = 10 * j;
 
@@ -1240,6 +1228,8 @@ void MainWindow::on_addCricleshow_triggered(bool checked)
 
     }else
     {
+        //删除网格图形
+        viewer->removeAllShapes();
         //删除圆环
         for(int i = 0; i < circle_v.size(); i++)
         {
@@ -1263,8 +1253,6 @@ void MainWindow::on_addCoordinate_triggered(bool checked)
         axes_actor->SetTotalLength(2, 2, 2);
         axes_actor->SetShaftType(0);
         axes_actor->SetCylinderRadius(0.02);
-
-
 
         widget_new->SetOutlineColor(0.9300, 0.5700, 0.1300);
         widget_new->SetOrientationMarker(axes_actor);
