@@ -333,13 +333,33 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1040</x>
+      <x>900</x>
       <y>490</y>
-      <width>96</width>
-      <height>25</height>
+      <width>241</width>
+      <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>PointSize</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="horizontalSlider">
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -358,7 +378,7 @@
       <x>330</x>
       <y>490</y>
       <width>200</width>
-      <height>16</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -380,6 +400,138 @@
       <height>451</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>490</y>
+      <width>344</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="fristFrame">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/frist.png</normaloff>:/images/frist.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="lastFrame">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/last_frame.png</normaloff>:/images/last_frame.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="play">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stop">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/stop.png</normaloff>:/images/stop.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="nextFrame">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/next_frame.png</normaloff>:/images/next_frame.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="endFrame">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="mainwindow.qrc">
+         <normaloff>:/images/end.png</normaloff>:/images/end.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -38,6 +38,7 @@ SOURCES += \
     #spreadsheet/spreadsheetdelegate.cpp \
  \    #spreadsheet/spreadsheetitem.cpp
  \    #temperature.cpp
+    showstream.cpp \
     temperature_realshow.cpp \
     voltage_realshow.cpp
 
@@ -67,6 +68,7 @@ HEADERS += \
     #spreadsheet/spreadsheet.h \
     #spreadsheet/spreadsheetdelegate.h \
  \     #spreadsheet/spreadsheetitem.h
+    showstream.h \
     temperature_realshow.h \
     voltage_realshow.h
 

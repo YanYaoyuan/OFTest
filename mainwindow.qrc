@@ -28,5 +28,12 @@
         <file>images/zuoshi.png</file>
         <file>images/circle1.png</file>
         <file>images/AXES.png</file>
+        <file>images/next.png</file>
+        <file>images/play.png</file>
+        <file>images/last_frame.png</file>
+        <file>images/next_frame.png</file>
+        <file>images/stop.png</file>
+        <file>images/frist.png</file>
+        <file>images/end.png</file>
     </qresource>
 </RCC>

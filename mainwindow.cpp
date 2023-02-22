@@ -56,6 +56,8 @@ vtkSmartPointer<vtkRenderWindowInteractor> iren = vtkSmartPointer<vtkRenderWindo
 vtkSmartPointer<vtkInteractorStyleTrackballCamera> istyle = vtkSmartPointer<vtkInteractorStyleTrackballCamera>::New();
 vtkSmartPointer<vtkCamera> myCamera = vtkSmartPointer<vtkCamera>::New(); //相机视角
 
+auto renderer = vtkSmartPointer<vtkRenderer>::New( );
+auto renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New( );
 
 
 
@@ -81,6 +83,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     QColormap *caa;
+
+    //点云流计时器
+    myTimer = new QTimer(this);
+    myTimer->setTimerType(Qt::PreciseTimer);
+    connect(myTimer, &QTimer::timeout, this, &MainWindow::on_nextFrame_clicked);
+
+
+
 
     initial();
 
@@ -117,14 +127,18 @@ void MainWindow::initial() {
     mycloud.cloud->resize(1);
 
     //将Viewer初始化进VTKOpenGLNativeWidget
-    viewer.reset(new pcl::visualization::PCLVisualizer("viewer", false));
-    auto renderer = vtkSmartPointer<vtkRenderer>::New( );
-    auto renderWindow = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New( );
+
+
+
+    //viewer.reset(new pcl::visualization::PCLVisualizer("viewer", true));
     renderWindow->AddRenderer(renderer);
-    viewer.reset(new pcl::visualization::PCLVisualizer(renderer, renderWindow, "viewer", false));
+    viewer.reset(new pcl::visualization::PCLVisualizer(renderer, renderWindow, "sample", false));
     ui->openGLWidget->setRenderWindow(viewer->getRenderWindow( ));
     viewer->setupInteractor(ui->openGLWidget->interactor(), ui->openGLWidget->renderWindow());
-    ui->openGLWidget->update();
+    viewer->setCameraPosition(100, -100, 100, 0, 0, 0, 0, 0, 1);
+    viewer->getRenderWindow()->Render();
+    ui->openGLWidget->show();
+
 
     ui->propertyTable->setSelectionMode(QAbstractItemView::ExtendedSelection); // 禁止点击属性管理器的 item
     ui->consoleTable->setSelectionMode(QAbstractItemView::ExtendedSelection);  // 禁止点击输出窗口的 item  NoSelection
@@ -274,6 +288,8 @@ void MainWindow::on_Voltage_Accepted()
     voltage_realshow *realdata = new voltage_realshow();
     realdata->showNormal();
 }
+
+
 
 
 //快捷键保存
@@ -453,14 +469,27 @@ void MainWindow::pointcolorChanged() {
 // 显示点云，不重置相机角度
 void MainWindow::showPointcloud() {
 
+
     for (int i = 0; i != mycloud_vec.size(); i++)
     {
+//        if(i==0){
+//        viewer->addPointCloud(mycloud_vec[i].cloud, mycloud_vec[i].cloudId);
+//        //}
+//        //else{
 
+        //std::cout<<i<<std::endl;
         viewer->updatePointCloud(mycloud_vec[i].cloud, mycloud_vec[i].cloudId);
+        //}
+
+//        //注：viewer->spin()使viewer重新渲染，若不调用则无法自动执行显示
+        viewer->spin();
+        ui->openGLWidget->update();
+//        std::cout<<"2222222222222"<<std::endl;
+
     }
-    //注：viewer->spin()使viewer重新渲染，若不调用则无法自动执行显示
-    viewer->spin();
-    ui->openGLWidget->update();
+
+
+
 
 }
 
@@ -473,6 +502,50 @@ void MainWindow::showPointcloudAdd() {
     }
 
     showPointcloud();
+
+}
+
+void MainWindow::showPointcloudSequence()
+{
+    //viewer.reset(new pcl::visualization::PCLVisualizer(renderer, renderWindow, "sample", false));
+    int i = 0;
+    while(i < mycloud_vec.size())
+    {
+
+        if(i == 0)
+        {
+            viewer->addPointCloud(mycloud_vec[i].cloud, "sample");
+/*            renderWindow = viewer->getRenderWindow();
+            viewer->createInteractor()*/;
+            renderWindow->Render();
+        }else{
+
+            viewer->updatePointCloud(mycloud_vec[i].cloud, "sample");
+//            renderWindow = viewer->getRenderWindow();
+//            viewer->createInteractor();
+            renderWindow->Render();
+        }
+
+
+//        viewer->addPointCloud(mycloud_vec[i].cloud, "sample");
+
+        i++;
+        //g_mutex_1.lock();
+        //while(!viewer->wasStopped()){
+            //viewer->spin();
+            std::cout << "111112222" <<std::endl;
+            //std::this_thread::sleep_for(std::chrono::microseconds(100000));
+        //}
+            ui->openGLWidget->update();
+
+        //g_mutex_1.unlock();
+        Sleep(500);
+
+        std::cout<< i <<std::endl;
+//        if(i >= mycloud_vec.size())
+//            i = 0;
+
+    }
 
 }
 
@@ -597,6 +670,7 @@ void MainWindow::onaction_Open_File()
     ui->dataTree_2->clear();
     viewer->removeAllPointClouds();
     loadFile(filePathList);
+
 
     consoleLog("Open File", "Point clouds selected", "", "");
 
@@ -958,11 +1032,15 @@ void MainWindow::createActions()
 
 
     //录制
-   OpenPcap=Record->addAction("打开文件");
-   Start=Record->addAction("开始");
-   Pause =Record->addAction("暂停");
-   Return=Record->addAction("回放");
-   Save=Record->addAction("保存");
+    OpenPcap=Record->addAction("打开文件");
+    Start=Record->addAction("开始");
+    Pause =Record->addAction("暂停");
+    Return=Record->addAction("回放");
+    Save=Record->addAction("保存");
+    //添加录制信号
+    connect(OpenPcap, SIGNAL(triggered(bool)), this, SLOT(onPcap()));
+    connect(Start, SIGNAL(triggered(bool)), this, SLOT(onPlayer()));
+    connect(ui->play, SIGNAL(clicked()), this, SLOT(onPlayer()));
 
 
     //工具
@@ -1191,15 +1269,6 @@ void MainWindow::on_addCricleshow_triggered(bool checked)
 {
     if(checked)
     {
-        //画网格
-        for (int i = -100; i <= 100; i += 10) {
-            viewer->addLine(pcl::PointXYZ(i, -100, 0), pcl::PointXYZ(i, 100, 0), QString("GridlineY%1").arg(i).toStdString(), 0);
-            viewer->addLine(pcl::PointXYZ(-100, i, 0), pcl::PointXYZ(100, i, 0), QString("GridlineX%1").arg(i).toStdString(), 0);
-            if (i > 0)
-                viewer->addText3D(QString::number(i).append("m").toStdString(), pcl::PointXYZ(0, i, 0), 0.8, 0.5, 0.5, 0.5, QString("GridText%1").arg(i).toStdString(), 0);
-            viewer->setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, 0.1, QString("GridlineY%1").arg(i).toStdString(), 0);
-            viewer->setShapeRenderingProperties(pcl::visualization::PCL_VISUALIZER_LINE_WIDTH, 0.1, QString("GridlineX%1").arg(i).toStdString(), 0);
-        }
         //画圆环
         for (int j = 1; j <= 10; j++) {
             int r = 10 * j;
@@ -1228,8 +1297,7 @@ void MainWindow::on_addCricleshow_triggered(bool checked)
 
     }else
     {
-        //删除网格图形
-        viewer->removeAllShapes();
+
         //删除圆环
         for(int i = 0; i < circle_v.size(); i++)
         {
@@ -1266,5 +1334,51 @@ void MainWindow::on_addCoordinate_triggered(bool checked)
         widget_new->SetOutlineColor(0, 0, 0);
         std::cout<< "hide axes" << std::endl;
         //待完成
+    }
+}
+
+void MainWindow::onPcap()
+{
+    //打开多个文件并将其保存到Vector中,这里只打开并只显示第一帧
+    onaction_Open_File();
+    viewer->removeAllPointClouds();  // 从viewer中移除所有点云
+    viewer->removeAllShapes(); // 这个remove更彻底
+    viewer->spin();
+    ui->openGLWidget->update();
+    //
+
+}
+
+void MainWindow::onPlayer()
+{
+//    viewer->removeAllPointClouds();  // 从viewer中移除所有点云
+//    cloud_rgb = mycloud_vec[0].cloud;
+//    viewer->addPointCloud(cloud_rgb, "sample");
+//    viewer->spinOnce(150);
+//    showStream();
+
+//    while(1)
+//    {
+//        on_nextFrame_clicked();
+//        Sleep(500);
+//    }
+    myTimer->start(150);
+
+}
+
+void MainWindow::on_nextFrame_clicked()
+{
+    std::cout << "show next frame" << std::endl;
+    if(currentFrame == 0){
+        viewer->addPointCloud(mycloud_vec[currentFrame].cloud, "sample");
+    }else{
+        viewer->updatePointCloud(mycloud_vec[currentFrame].cloud, "sample");
+    }
+    viewer->spin();
+    ui->openGLWidget->update();
+    currentFrame++;
+    if(currentFrame >= mycloud_vec.size())
+    {
+        currentFrame = 1;
     }
 }

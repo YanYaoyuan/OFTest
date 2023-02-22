@@ -10,6 +10,10 @@
 #include <QtWidgets/QMenuBar>
 #include <QtCore/QStringList>
 #include <QtWidgets/QColorDialog>
+#include <QTimer>
+#include <QMutex>
+
+#include <thread>
 #include "datatable.h"
 #include "document.h"
 #include "registe_configure.h"
@@ -95,6 +99,10 @@ private slots:
     void on_Index_accepted();
     void on_Temperature_Accepted();
     void on_Voltage_Accepted();
+    //增加PCD文件流播放
+    void onPcap();
+    void onPlayer();
+    void onPuase();
 
 
     void loadFile(const QStringList& filePathList);
@@ -136,6 +144,8 @@ private slots:
 
     void on_addCoordinate_triggered(bool checked);
 
+    void on_nextFrame_clicked();
+
 private:
 
 	Ui::MainWindow *ui;
@@ -147,6 +157,7 @@ private:
     void pointcolorChanged();
     void showPointcloud();
     void showPointcloudAdd();  //添加给viewer，显示点云
+    void showPointcloudSequence();
     void mainview_action();
     void leftview_action();
     void topview_action();
@@ -169,6 +180,7 @@ private:
     MyCloud mycloud;
     std::vector<MyCloud> mycloud_vec;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_xyz;
+    pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud_rgb;
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
     FileIO fileIO;
     //多圆环点云容器 Yan
@@ -260,6 +272,11 @@ private:
 
     //QLabel *m_picLable;
     bool m_bSavePcdFileStatus = false;
+
+    //设置计时器，读取点云流
+    QTimer *myTimer;
+    QMutex g_mutex_1;
+    int currentFrame = 0;
 
 };
 #endif // MAINWINDOW_H

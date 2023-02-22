@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDockWidget>
@@ -20,6 +21,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
@@ -68,10 +71,20 @@ public:
     QTableWidget *propertyTable;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
+    QLabel *label_3;
+    QSlider *horizontalSlider;
     QLabel *label_2;
     QLCDNumber *fpsNumber;
     QLabel *label;
     QVTKOpenGLNativeWidget *openGLWidget;
+    QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *fristFrame;
+    QPushButton *lastFrame;
+    QPushButton *play;
+    QPushButton *stop;
+    QPushButton *nextFrame;
+    QPushButton *endFrame;
     QMenuBar *menubar;
     QStatusBar *statusbar;
     QToolBar *toolBar;
@@ -314,10 +327,23 @@ public:
         propertyDock_2->setWidget(dockWidgetContents_9);
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(1040, 490, 96, 25));
+        layoutWidget->setGeometry(QRect(900, 490, 241, 31));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        label_3 = new QLabel(layoutWidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        horizontalLayout->addWidget(label_3);
+
+        horizontalSlider = new QSlider(layoutWidget);
+        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
+        horizontalSlider->setMaximum(20);
+        horizontalSlider->setSingleStep(1);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout->addWidget(horizontalSlider);
+
         label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
@@ -330,11 +356,77 @@ public:
 
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(330, 490, 200, 16));
+        label->setGeometry(QRect(330, 490, 200, 21));
         label->setMinimumSize(QSize(200, 0));
         openGLWidget = new QVTKOpenGLNativeWidget(centralwidget);
         openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
         openGLWidget->setGeometry(QRect(340, 30, 801, 451));
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(620, 490, 211, 31));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        fristFrame = new QPushButton(layoutWidget1);
+        fristFrame->setObjectName(QString::fromUtf8("fristFrame"));
+        QIcon icon22;
+        icon22.addFile(QString::fromUtf8(":/images/frist.png"), QSize(), QIcon::Normal, QIcon::Off);
+        fristFrame->setIcon(icon22);
+        fristFrame->setIconSize(QSize(40, 40));
+        fristFrame->setFlat(true);
+
+        horizontalLayout_2->addWidget(fristFrame);
+
+        lastFrame = new QPushButton(layoutWidget1);
+        lastFrame->setObjectName(QString::fromUtf8("lastFrame"));
+        QIcon icon23;
+        icon23.addFile(QString::fromUtf8(":/images/last_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        lastFrame->setIcon(icon23);
+        lastFrame->setIconSize(QSize(40, 40));
+        lastFrame->setFlat(true);
+
+        horizontalLayout_2->addWidget(lastFrame);
+
+        play = new QPushButton(layoutWidget1);
+        play->setObjectName(QString::fromUtf8("play"));
+        QIcon icon24;
+        icon24.addFile(QString::fromUtf8(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
+        play->setIcon(icon24);
+        play->setIconSize(QSize(40, 40));
+        play->setFlat(true);
+
+        horizontalLayout_2->addWidget(play);
+
+        stop = new QPushButton(layoutWidget1);
+        stop->setObjectName(QString::fromUtf8("stop"));
+        QIcon icon25;
+        icon25.addFile(QString::fromUtf8(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
+        stop->setIcon(icon25);
+        stop->setIconSize(QSize(40, 40));
+        stop->setFlat(true);
+
+        horizontalLayout_2->addWidget(stop);
+
+        nextFrame = new QPushButton(layoutWidget1);
+        nextFrame->setObjectName(QString::fromUtf8("nextFrame"));
+        QIcon icon26;
+        icon26.addFile(QString::fromUtf8(":/images/next_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        nextFrame->setIcon(icon26);
+        nextFrame->setIconSize(QSize(40, 40));
+        nextFrame->setFlat(true);
+
+        horizontalLayout_2->addWidget(nextFrame);
+
+        endFrame = new QPushButton(layoutWidget1);
+        endFrame->setObjectName(QString::fromUtf8("endFrame"));
+        QIcon icon27;
+        icon27.addFile(QString::fromUtf8(":/images/end.png"), QSize(), QIcon::Normal, QIcon::Off);
+        endFrame->setIcon(icon27);
+        endFrame->setIconSize(QSize(40, 40));
+        endFrame->setFlat(true);
+
+        horizontalLayout_2->addWidget(endFrame);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -455,8 +547,15 @@ public:
         ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Property", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = propertyTable->horizontalHeaderItem(1);
         ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Value", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "PointSize", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "FPS:", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        fristFrame->setText(QString());
+        lastFrame->setText(QString());
+        play->setText(QString());
+        stop->setText(QString());
+        nextFrame->setText(QString());
+        endFrame->setText(QString());
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
