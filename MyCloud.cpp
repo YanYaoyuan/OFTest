@@ -117,6 +117,12 @@ void MyCloud::setShowMode(const string& mode) {
     show();
 }
 
+void MyCloud::setPointSize(int a)
+{
+    viewer->setPointCloudRenderingProperties (
+                pcl::visualization::PCL_VISUALIZER_POINT_SIZE, a/10, cloudId);
+}
+
 void MyCloud::showCloud() {
     viewer->setPointCloudRenderingProperties(
                 pcl::visualization::RenderingProperties::PCL_VISUALIZER_OPACITY, 1.0, cloudId, 0);

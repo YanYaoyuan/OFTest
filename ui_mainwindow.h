@@ -14,6 +14,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDockWidget>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -23,10 +24,12 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "QVTKOpenGLNativeWidget.h"
 
@@ -58,10 +61,13 @@ public:
     QAction *saveBinaryAction;
     QAction *addCricleshow;
     QAction *addCoordinate;
+    QAction *actionRecord;
+    QAction *actionRecordStop;
     QWidget *centralwidget;
-    QDockWidget *consoleDock;
-    QWidget *dockWidgetContents_7;
-    QTableWidget *consoleTable;
+    QGridLayout *gridLayout_3;
+    QGridLayout *gridLayout_2;
+    QFormLayout *formLayout;
+    QVBoxLayout *verticalLayout;
     QDockWidget *dataDock;
     QWidget *dockWidgetContents_8;
     QGridLayout *gridLayout;
@@ -69,22 +75,27 @@ public:
     QDockWidget *propertyDock_2;
     QWidget *dockWidgetContents_9;
     QTableWidget *propertyTable;
-    QWidget *layoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label_3;
-    QSlider *horizontalSlider;
-    QLabel *label_2;
-    QLCDNumber *fpsNumber;
-    QLabel *label;
     QVTKOpenGLNativeWidget *openGLWidget;
-    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
+    QLabel *label;
+    QSpacerItem *horizontalSpacer;
+    QHBoxLayout *horizontalLayout;
     QPushButton *fristFrame;
     QPushButton *lastFrame;
     QPushButton *play;
     QPushButton *stop;
     QPushButton *nextFrame;
     QPushButton *endFrame;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *label_3;
+    QSlider *pointSizeChange;
+    QSpacerItem *horizontalSpacer_4;
+    QLabel *label_2;
+    QLCDNumber *fpsNumber;
+    QDockWidget *consoleDock;
+    QWidget *dockWidgetContents_7;
+    QGridLayout *gridLayout_4;
+    QTableWidget *consoleTable;
     QMenuBar *menubar;
     QStatusBar *statusbar;
     QToolBar *toolBar;
@@ -93,7 +104,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1200, 813);
+        MainWindow->resize(1203, 800);
         MainWindow->setMinimumSize(QSize(1200, 800));
         openAction = new QAction(MainWindow);
         openAction->setObjectName(QString::fromUtf8("openAction"));
@@ -212,49 +223,29 @@ public:
         QIcon icon21;
         icon21.addFile(QString::fromUtf8(":/images/AXES.png"), QSize(), QIcon::Normal, QIcon::Off);
         addCoordinate->setIcon(icon21);
+        actionRecord = new QAction(MainWindow);
+        actionRecord->setObjectName(QString::fromUtf8("actionRecord"));
+        QIcon icon22;
+        icon22.addFile(QString::fromUtf8(":/images/record.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRecord->setIcon(icon22);
+        actionRecordStop = new QAction(MainWindow);
+        actionRecordStop->setObjectName(QString::fromUtf8("actionRecordStop"));
+        QIcon icon23;
+        icon23.addFile(QString::fromUtf8(":/images/stoprecord.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRecordStop->setIcon(icon23);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        consoleDock = new QDockWidget(centralwidget);
-        consoleDock->setObjectName(QString::fromUtf8("consoleDock"));
-        consoleDock->setEnabled(true);
-        consoleDock->setGeometry(QRect(10, 540, 1131, 211));
-        consoleDock->setMinimumSize(QSize(800, 140));
-        consoleDock->setMaximumSize(QSize(1500, 220));
-        dockWidgetContents_7 = new QWidget();
-        dockWidgetContents_7->setObjectName(QString::fromUtf8("dockWidgetContents_7"));
-        consoleTable = new QTableWidget(dockWidgetContents_7);
-        if (consoleTable->columnCount() < 5)
-            consoleTable->setColumnCount(5);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        __qtablewidgetitem->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        consoleTable->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        consoleTable->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        __qtablewidgetitem2->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        consoleTable->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        __qtablewidgetitem3->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        consoleTable->setHorizontalHeaderItem(3, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        __qtablewidgetitem4->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        consoleTable->setHorizontalHeaderItem(4, __qtablewidgetitem4);
-        consoleTable->setObjectName(QString::fromUtf8("consoleTable"));
-        consoleTable->setGeometry(QRect(0, 10, 1131, 161));
-        consoleTable->setShowGrid(false);
-        consoleTable->setGridStyle(Qt::SolidLine);
-        consoleTable->setRowCount(0);
-        consoleTable->setColumnCount(5);
-        consoleTable->horizontalHeader()->setVisible(false);
-        consoleTable->horizontalHeader()->setDefaultSectionSize(200);
-        consoleTable->horizontalHeader()->setStretchLastSection(true);
-        consoleTable->verticalHeader()->setVisible(false);
-        consoleDock->setWidget(dockWidgetContents_7);
+        gridLayout_3 = new QGridLayout(centralwidget);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        gridLayout_2 = new QGridLayout();
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         dataDock = new QDockWidget(centralwidget);
         dataDock->setObjectName(QString::fromUtf8("dataDock"));
         dataDock->setEnabled(true);
-        dataDock->setGeometry(QRect(12, 16, 300, 233));
         dataDock->setMinimumSize(QSize(250, 233));
         dataDock->setMaximumSize(QSize(300, 524287));
         QFont font;
@@ -277,26 +268,29 @@ public:
         gridLayout->addWidget(dataTree_2, 0, 0, 1, 1);
 
         dataDock->setWidget(dockWidgetContents_8);
+
+        verticalLayout->addWidget(dataDock);
+
         propertyDock_2 = new QDockWidget(centralwidget);
         propertyDock_2->setObjectName(QString::fromUtf8("propertyDock_2"));
-        propertyDock_2->setGeometry(QRect(12, 252, 291, 261));
         propertyDock_2->setMinimumSize(QSize(250, 233));
+        propertyDock_2->setMaximumSize(QSize(300, 524287));
         propertyDock_2->setFont(font);
         dockWidgetContents_9 = new QWidget();
         dockWidgetContents_9->setObjectName(QString::fromUtf8("dockWidgetContents_9"));
         propertyTable = new QTableWidget(dockWidgetContents_9);
         if (propertyTable->columnCount() < 2)
             propertyTable->setColumnCount(2);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        __qtablewidgetitem5->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        propertyTable->setHorizontalHeaderItem(0, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        __qtablewidgetitem6->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
-        propertyTable->setHorizontalHeaderItem(1, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        __qtablewidgetitem->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        propertyTable->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        __qtablewidgetitem1->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        propertyTable->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         if (propertyTable->rowCount() < 4)
             propertyTable->setRowCount(4);
         propertyTable->setObjectName(QString::fromUtf8("propertyTable"));
-        propertyTable->setGeometry(QRect(9, 9, 271, 221));
+        propertyTable->setGeometry(QRect(9, 9, 261, 191));
         propertyTable->setMinimumSize(QSize(230, 180));
         propertyTable->setFont(font1);
         propertyTable->setFrameShadow(QFrame::Sunken);
@@ -325,112 +319,192 @@ public:
         propertyTable->verticalHeader()->setVisible(false);
         propertyTable->verticalHeader()->setCascadingSectionResizes(false);
         propertyDock_2->setWidget(dockWidgetContents_9);
-        layoutWidget = new QWidget(centralwidget);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(900, 490, 241, 31));
-        horizontalLayout = new QHBoxLayout(layoutWidget);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label_3 = new QLabel(layoutWidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        horizontalLayout->addWidget(label_3);
+        verticalLayout->addWidget(propertyDock_2);
 
-        horizontalSlider = new QSlider(layoutWidget);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setMaximum(20);
-        horizontalSlider->setSingleStep(1);
-        horizontalSlider->setOrientation(Qt::Horizontal);
 
-        horizontalLayout->addWidget(horizontalSlider);
+        formLayout->setLayout(0, QFormLayout::LabelRole, verticalLayout);
 
-        label_2 = new QLabel(layoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        horizontalLayout->addWidget(label_2);
-
-        fpsNumber = new QLCDNumber(layoutWidget);
-        fpsNumber->setObjectName(QString::fromUtf8("fpsNumber"));
-
-        horizontalLayout->addWidget(fpsNumber);
-
-        label = new QLabel(centralwidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(330, 490, 200, 21));
-        label->setMinimumSize(QSize(200, 0));
         openGLWidget = new QVTKOpenGLNativeWidget(centralwidget);
         openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
-        openGLWidget->setGeometry(QRect(340, 30, 801, 451));
-        layoutWidget1 = new QWidget(centralwidget);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(620, 490, 211, 31));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, openGLWidget);
+
+
+        gridLayout_2->addLayout(formLayout, 0, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        fristFrame = new QPushButton(layoutWidget1);
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setMinimumSize(QSize(200, 0));
+        label->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_2->addWidget(label);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        fristFrame = new QPushButton(centralwidget);
         fristFrame->setObjectName(QString::fromUtf8("fristFrame"));
-        QIcon icon22;
-        icon22.addFile(QString::fromUtf8(":/images/frist.png"), QSize(), QIcon::Normal, QIcon::Off);
-        fristFrame->setIcon(icon22);
+        fristFrame->setMaximumSize(QSize(16777215, 20));
+        QIcon icon24;
+        icon24.addFile(QString::fromUtf8(":/images/frist.png"), QSize(), QIcon::Normal, QIcon::Off);
+        fristFrame->setIcon(icon24);
         fristFrame->setIconSize(QSize(40, 40));
         fristFrame->setFlat(true);
 
-        horizontalLayout_2->addWidget(fristFrame);
+        horizontalLayout->addWidget(fristFrame);
 
-        lastFrame = new QPushButton(layoutWidget1);
+        lastFrame = new QPushButton(centralwidget);
         lastFrame->setObjectName(QString::fromUtf8("lastFrame"));
-        QIcon icon23;
-        icon23.addFile(QString::fromUtf8(":/images/last_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
-        lastFrame->setIcon(icon23);
+        lastFrame->setMaximumSize(QSize(16777215, 20));
+        QIcon icon25;
+        icon25.addFile(QString::fromUtf8(":/images/last_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        lastFrame->setIcon(icon25);
         lastFrame->setIconSize(QSize(40, 40));
         lastFrame->setFlat(true);
 
-        horizontalLayout_2->addWidget(lastFrame);
+        horizontalLayout->addWidget(lastFrame);
 
-        play = new QPushButton(layoutWidget1);
+        play = new QPushButton(centralwidget);
         play->setObjectName(QString::fromUtf8("play"));
-        QIcon icon24;
-        icon24.addFile(QString::fromUtf8(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
-        play->setIcon(icon24);
+        play->setMaximumSize(QSize(16777215, 20));
+        QIcon icon26;
+        icon26.addFile(QString::fromUtf8(":/images/play.png"), QSize(), QIcon::Normal, QIcon::Off);
+        play->setIcon(icon26);
         play->setIconSize(QSize(40, 40));
         play->setFlat(true);
 
-        horizontalLayout_2->addWidget(play);
+        horizontalLayout->addWidget(play);
 
-        stop = new QPushButton(layoutWidget1);
+        stop = new QPushButton(centralwidget);
         stop->setObjectName(QString::fromUtf8("stop"));
-        QIcon icon25;
-        icon25.addFile(QString::fromUtf8(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
-        stop->setIcon(icon25);
+        stop->setMaximumSize(QSize(16777215, 20));
+        QIcon icon27;
+        icon27.addFile(QString::fromUtf8(":/images/stop.png"), QSize(), QIcon::Normal, QIcon::Off);
+        stop->setIcon(icon27);
         stop->setIconSize(QSize(40, 40));
         stop->setFlat(true);
 
-        horizontalLayout_2->addWidget(stop);
+        horizontalLayout->addWidget(stop);
 
-        nextFrame = new QPushButton(layoutWidget1);
+        nextFrame = new QPushButton(centralwidget);
         nextFrame->setObjectName(QString::fromUtf8("nextFrame"));
-        QIcon icon26;
-        icon26.addFile(QString::fromUtf8(":/images/next_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
-        nextFrame->setIcon(icon26);
+        nextFrame->setMaximumSize(QSize(16777215, 20));
+        QIcon icon28;
+        icon28.addFile(QString::fromUtf8(":/images/next_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        nextFrame->setIcon(icon28);
         nextFrame->setIconSize(QSize(40, 40));
         nextFrame->setFlat(true);
 
-        horizontalLayout_2->addWidget(nextFrame);
+        horizontalLayout->addWidget(nextFrame);
 
-        endFrame = new QPushButton(layoutWidget1);
+        endFrame = new QPushButton(centralwidget);
         endFrame->setObjectName(QString::fromUtf8("endFrame"));
-        QIcon icon27;
-        icon27.addFile(QString::fromUtf8(":/images/end.png"), QSize(), QIcon::Normal, QIcon::Off);
-        endFrame->setIcon(icon27);
+        endFrame->setMaximumSize(QSize(16777215, 20));
+        QIcon icon29;
+        icon29.addFile(QString::fromUtf8(":/images/end.png"), QSize(), QIcon::Normal, QIcon::Off);
+        endFrame->setIcon(icon29);
         endFrame->setIconSize(QSize(40, 40));
         endFrame->setFlat(true);
 
-        horizontalLayout_2->addWidget(endFrame);
+        horizontalLayout->addWidget(endFrame);
+
+
+        horizontalLayout_2->addLayout(horizontalLayout);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_2->addWidget(label_3);
+
+        pointSizeChange = new QSlider(centralwidget);
+        pointSizeChange->setObjectName(QString::fromUtf8("pointSizeChange"));
+        pointSizeChange->setMaximum(100);
+        pointSizeChange->setSingleStep(1);
+        pointSizeChange->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_2->addWidget(pointSizeChange);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_4);
+
+        label_2 = new QLabel(centralwidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_2->addWidget(label_2);
+
+        fpsNumber = new QLCDNumber(centralwidget);
+        fpsNumber->setObjectName(QString::fromUtf8("fpsNumber"));
+        fpsNumber->setMaximumSize(QSize(16777215, 20));
+
+        horizontalLayout_2->addWidget(fpsNumber);
+
+
+        gridLayout_2->addLayout(horizontalLayout_2, 1, 0, 1, 1);
+
+        consoleDock = new QDockWidget(centralwidget);
+        consoleDock->setObjectName(QString::fromUtf8("consoleDock"));
+        consoleDock->setEnabled(true);
+        consoleDock->setMinimumSize(QSize(800, 140));
+        consoleDock->setMaximumSize(QSize(524287, 524287));
+        dockWidgetContents_7 = new QWidget();
+        dockWidgetContents_7->setObjectName(QString::fromUtf8("dockWidgetContents_7"));
+        gridLayout_4 = new QGridLayout(dockWidgetContents_7);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        consoleTable = new QTableWidget(dockWidgetContents_7);
+        if (consoleTable->columnCount() < 5)
+            consoleTable->setColumnCount(5);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        consoleTable->setHorizontalHeaderItem(0, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        __qtablewidgetitem3->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        consoleTable->setHorizontalHeaderItem(1, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        __qtablewidgetitem4->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        consoleTable->setHorizontalHeaderItem(2, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        __qtablewidgetitem5->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        consoleTable->setHorizontalHeaderItem(3, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        __qtablewidgetitem6->setTextAlignment(Qt::AlignLeading|Qt::AlignVCenter);
+        consoleTable->setHorizontalHeaderItem(4, __qtablewidgetitem6);
+        consoleTable->setObjectName(QString::fromUtf8("consoleTable"));
+        consoleTable->setMinimumSize(QSize(750, 100));
+        consoleTable->setShowGrid(true);
+        consoleTable->setGridStyle(Qt::SolidLine);
+        consoleTable->setRowCount(0);
+        consoleTable->setColumnCount(5);
+        consoleTable->horizontalHeader()->setVisible(false);
+        consoleTable->horizontalHeader()->setDefaultSectionSize(200);
+        consoleTable->horizontalHeader()->setStretchLastSection(true);
+        consoleTable->verticalHeader()->setVisible(false);
+
+        gridLayout_4->addWidget(consoleTable, 0, 0, 1, 1);
+
+        consoleDock->setWidget(dockWidgetContents_7);
+
+        gridLayout_2->addWidget(consoleDock, 2, 0, 1, 1);
+
+
+        gridLayout_3->addLayout(gridLayout_2, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1200, 23));
+        menubar->setGeometry(QRect(0, 0, 1203, 23));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -452,6 +526,8 @@ public:
         toolBar->addAction(mainviewAction);
         toolBar->addAction(leftviewAction);
         toolBar->addAction(topviewAction);
+        toolBar->addAction(actionRecord);
+        toolBar->addAction(actionRecordStop);
         toolBar->addAction(cubeAction);
         toolBar->addAction(meshsurfaceAction);
         toolBar->addAction(cylinderAction);
@@ -528,27 +604,22 @@ public:
 #if QT_CONFIG(tooltip)
         addCoordinate->setToolTip(QCoreApplication::translate("MainWindow", "addCoordinate", nullptr));
 #endif // QT_CONFIG(tooltip)
-        consoleDock->setWindowTitle(QCoreApplication::translate("MainWindow", "Console", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = consoleTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Time", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = consoleTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Operation", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = consoleTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Operation Object", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = consoleTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Details", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = consoleTable->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Note", nullptr));
+        actionRecord->setText(QCoreApplication::translate("MainWindow", "Record", nullptr));
+#if QT_CONFIG(tooltip)
+        actionRecord->setToolTip(QCoreApplication::translate("MainWindow", "Start Record", nullptr));
+#endif // QT_CONFIG(tooltip)
+        actionRecordStop->setText(QCoreApplication::translate("MainWindow", "RecordStop", nullptr));
+#if QT_CONFIG(tooltip)
+        actionRecordStop->setToolTip(QCoreApplication::translate("MainWindow", "Record Stop", nullptr));
+#endif // QT_CONFIG(tooltip)
         dataDock->setWindowTitle(QCoreApplication::translate("MainWindow", "PointCloud", nullptr));
         QTreeWidgetItem *___qtreewidgetitem = dataTree_2->headerItem();
         ___qtreewidgetitem->setText(0, QCoreApplication::translate("MainWindow", "Point Cloud File", nullptr));
         propertyDock_2->setWindowTitle(QCoreApplication::translate("MainWindow", "Properties", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = propertyTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Property", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = propertyTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Value", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "PointSize", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "FPS:", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = propertyTable->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Property", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = propertyTable->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Value", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         fristFrame->setText(QString());
         lastFrame->setText(QString());
@@ -556,6 +627,19 @@ public:
         stop->setText(QString());
         nextFrame->setText(QString());
         endFrame->setText(QString());
+        label_3->setText(QCoreApplication::translate("MainWindow", "PointSize", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "FPS:", nullptr));
+        consoleDock->setWindowTitle(QCoreApplication::translate("MainWindow", "Console", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = consoleTable->horizontalHeaderItem(0);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Time", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = consoleTable->horizontalHeaderItem(1);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Operation", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = consoleTable->horizontalHeaderItem(2);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Operation Object", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = consoleTable->horizontalHeaderItem(3);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Details", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = consoleTable->horizontalHeaderItem(4);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Note", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 

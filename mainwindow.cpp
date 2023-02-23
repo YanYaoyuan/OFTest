@@ -156,6 +156,16 @@ void MainWindow::initial() {
     setPropertyTable();
     setConsoleTable();
 
+    //将播放按钮设置隐藏
+
+    ui->play->setEnabled(false);
+    ui->fristFrame->setEnabled(false);
+    ui->lastFrame->setEnabled(false);
+    ui->nextFrame->setEnabled(false);
+    ui->stop->setEnabled(false);
+    ui->endFrame->setEnabled(false);
+
+
     std::cout<<"Start arens function."<<std::endl;
 
 	// 输出窗口
@@ -1032,7 +1042,7 @@ void MainWindow::createActions()
 
 
     //录制
-    OpenPcap=Record->addAction("打开文件");
+    OpenPcap=Record->addAction("打开文件流");
     Start=Record->addAction("开始");
     Pause =Record->addAction("暂停");
     Return=Record->addAction("回放");
@@ -1041,6 +1051,8 @@ void MainWindow::createActions()
     connect(OpenPcap, SIGNAL(triggered(bool)), this, SLOT(onPcap()));
     connect(Start, SIGNAL(triggered(bool)), this, SLOT(onPlayer()));
     connect(ui->play, SIGNAL(clicked()), this, SLOT(onPlayer()));
+    connect(Pause, SIGNAL(triggered(bool)), this, SLOT(onPause()));
+    connect(ui->stop, SIGNAL(clicked()), this, SLOT(onPause()));
 
 
     //工具
@@ -1347,23 +1359,30 @@ void MainWindow::onPcap()
     ui->openGLWidget->update();
     //
 
+    //将播放按钮启用
+    ui->play->setEnabled(true);
+    ui->fristFrame->setEnabled(true);
+    ui->lastFrame->setEnabled(true);
+    ui->nextFrame->setEnabled(true);
+    ui->stop->setEnabled(true);
+    ui->endFrame->setEnabled(true);
+
 }
 
 void MainWindow::onPlayer()
 {
-//    viewer->removeAllPointClouds();  // 从viewer中移除所有点云
-//    cloud_rgb = mycloud_vec[0].cloud;
-//    viewer->addPointCloud(cloud_rgb, "sample");
-//    viewer->spinOnce(150);
-//    showStream();
+    if(mycloud_vec.size() == 0)
+    {
+        std::cout << "No point cloud stream" << std::endl;
+    }else
+    {
+        myTimer->start(150);
+    }
+}
 
-//    while(1)
-//    {
-//        on_nextFrame_clicked();
-//        Sleep(500);
-//    }
-    myTimer->start(150);
-
+void MainWindow::onPause()
+{
+    myTimer->stop();
 }
 
 void MainWindow::on_nextFrame_clicked()
@@ -1381,4 +1400,23 @@ void MainWindow::on_nextFrame_clicked()
     {
         currentFrame = 1;
     }
+}
+
+void MainWindow::on_pointSizeChange_sliderMoved(int position)
+{
+    //修改当前界面点云大小
+    std::cout << "chang piont size " << position<< std::endl;
+    for(int i = 0; i < mycloud_vec.size(); i++)
+    {
+        mycloud_vec[i].setPointSize(position);
+    }
+    viewer->spin();
+    ui->openGLWidget->update();
+}
+//录制视频
+void MainWindow::on_actionRecord_triggered()
+{
+    std::cout << "Start Record..." << std::endl;
+
+
 }

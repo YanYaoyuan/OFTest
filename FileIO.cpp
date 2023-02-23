@@ -1,4 +1,4 @@
-#include "FileIO.h"
+﻿#include "FileIO.h"
 #include "Tools.h"
 #include <QString>
 
@@ -21,6 +21,7 @@ MyCloud FileIO::loadPCD(const QFileInfo& fileInfo) {
     string filePath = fromQString(fileInfo.filePath());
     int status = -1;
     status = pcl::io::loadPCDFile(filePath, *(myCloud.cloud));
+
 
     bool hasCloud = (status == 0);
     // There is no polygon mesh loader for pcd file in PCL

@@ -52,9 +52,11 @@
 #include <vtkGenericOpenGLRenderWindow.h>
 #include <vtkRegularPolygonSource.h>
 #include "vtkAutoInit.h" 
-VTK_MODULE_INIT(vtkRenderingOpenGL2);
-VTK_MODULE_INIT(vtkInteractionStyle);
-VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
+#include <vtkWindowToImageFilter.h>
+//#include <vtkAVIWriter.h>   //VTK9.1中未找到
+VTK_MODULE_INIT(vtkRenderingOpenGL2)
+VTK_MODULE_INIT(vtkInteractionStyle)
+VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2)
 
 VTK_MODULE_INIT(vtkRenderingFreeType)
 //VTK_MODULE_INIT(vtkRenderingCore);
@@ -102,7 +104,7 @@ private slots:
     //增加PCD文件流播放
     void onPcap();
     void onPlayer();
-    void onPuase();
+    void onPause();
 
 
     void loadFile(const QStringList& filePathList);
@@ -145,6 +147,10 @@ private slots:
     void on_addCoordinate_triggered(bool checked);
 
     void on_nextFrame_clicked();
+
+    void on_pointSizeChange_sliderMoved(int position);
+
+    void on_actionRecord_triggered();
 
 private:
 

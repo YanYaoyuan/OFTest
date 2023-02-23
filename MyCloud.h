@@ -73,6 +73,7 @@ public:
     void setPointColor(int r, int g, int b);
     void setPointAlpha(int a);
     void setShowMode(const string& mode);
+    void setPointSize(int a);
     void showCloud();
     void hideCloud();
     void showMesh();
